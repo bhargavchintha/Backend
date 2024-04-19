@@ -10,6 +10,7 @@ const fs = require('fs');
 
 const http = require('http')
 const hostname = "127.0.0.1"
+const home = require('./routes/home')
 
 
 
@@ -477,11 +478,19 @@ app.get('/search', (req, res) => {
 
 
 
-
-
-// Server Setup
 app.get('/', (req, res) => {
-  res.send('Server is running on port 3030');
+  // Set the response header for content type
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  
+  // Read the home.js file and send its content
+  fs.readFile(path.join(__dirname, 'routes', 'home.js'), 'utf-8', (err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error reading file');
+    } else {
+      res.send(data);
+    }
+  });
 });
 
 
