@@ -479,19 +479,30 @@ app.get('/search', (req, res) => {
 
 
 app.get('/', (req, res) => {
-  // Set the response header for content type
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  
-  // Read the home.js file and send its content
-  fs.readFile(path.join(__dirname, 'routes', 'home.js'), 'utf-8', (err, data) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Error reading file');
-    } else {
-      res.send(data);
-    }
-  });
+  // Send HTML content as a response
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Api  Testing</title>
+    </head>
+    <body>
+        <h1>Api Testing</h1>
+        <p>The app is working properly!</p>
+        <a herf="http://localhost:3030">Link</a>
+        <a herf="http://localhost:3030/navbar">navbar</a>
+        http://localhost:3030/Homesongs
+
+        <a href="https://www.w3schools.com">Visit W3Schools.com!</a>
+    </body>
+    </html>
+  `;
+  res.type('text/html').send(htmlContent);
 });
+
+
 
 
 
